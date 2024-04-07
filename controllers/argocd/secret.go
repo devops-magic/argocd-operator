@@ -27,11 +27,11 @@ import (
 	"time"
 
 	argopass "github.com/argoproj/argo-cd/v2/util/password"
-	tlsutil "github.com/operator-framework/operator-sdk/pkg/tls"
+	//tlsutil "github.com/operator-framework/operator-sdk/pkg/tls"
 
 	argoproj "github.com/argoproj-labs/argocd-operator/api/v1beta1"
 	"github.com/argoproj-labs/argocd-operator/common"
-	"github.com/argoproj-labs/argocd-operator/controllers/argoutil"
+	argoutil "github.com/argoproj-labs/argocd-operator/controllers/argoutil"
 
 	corev1 "k8s.io/api/core/v1"
 	apierrors "k8s.io/apimachinery/pkg/api/errors"
@@ -111,9 +111,9 @@ func newCertificateSecret(suffix string, caCert *x509.Certificate, caKey *rsa.Pr
 		return nil, err
 	}
 
-	cfg := &tlsutil.CertConfig{
-		CertName:     secret.Name,
-		CertType:     tlsutil.ClientAndServingCert,
+	cfg := &argoutil.CertConfig{
+		// CertName:     secret.Name,
+		CertType:     argoutil.ClientAndServingCert,
 		CommonName:   secret.Name,
 		Organization: []string{cr.ObjectMeta.Namespace},
 	}
